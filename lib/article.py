@@ -1,14 +1,16 @@
 # Object oriented program 
 
 class Article:
-    _all = []
-#set an attributes  of the class
+    all = []  # Class variable to hold all articles
+
     def __init__(self, author, magazine, title):
-        self._author = author
-        self._magazine = magazine
-        self._title = title
-        Article._all.append(self)
-#
+        self.author = author
+        self.magazine = magazine
+        self.title = title
+        # Append the instance to the class variable 'all'
+        Article.all.append(self)
+
+
     def title(self):
         return self._title
 
