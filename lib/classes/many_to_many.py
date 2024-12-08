@@ -7,7 +7,7 @@ class Article:
     def __init__(self, author, magazine, title):
         self.author = author
         self.magazine = magazine
-        self._title = title
+        self.title = title
         Article.all.append(self)
        
     @property
@@ -16,10 +16,9 @@ class Article:
     
     @title.setter
     def title(self,title):
-        if title != self.title:
-            return self._title
-        elif isinstance(title,str) and 5 <= len(title) <= 50:
-            self._title = title
+        if not isinstance(title, str) or not (5 <= len(title) <= 50):
+            raise ValueError("Title must be a string between 5 and 50 characters long.")
+        self._title = title
 
     @property
     def author(self):
@@ -38,20 +37,20 @@ class Author:
     all = []
 
     def __init__(self, name):
+        self._name = None
         self.name = name
         Author.all.append(self)
         self.author_articles = []
 
-    # @property
-    # def name(self):
-    #     return self._name
+    @property
+    def name(self):
+        return self._name
     
-    # @name.setter
-    # def name(self,name):
-    #     if name != self.name:
-    #         return self._name
-    #     elif isinstance(name,str) and len(name) > 0:
-    #         self._name = name
+    @name.setter
+    def name(self,name):
+        if not isinstance(name, str) or len(name) == 0:
+            raise ValueError("Name must be a non-empty string.")
+        self._name = name
 
     def articles(self):
         return [article for article in Article.all if article.author == self]
